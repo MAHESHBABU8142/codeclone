@@ -1,0 +1,100 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Manjari:wght@100;400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/*global styles*/
+   *{
+    padding: 0;
+    margin:0;
+   }
+   a {
+    text-decoration: none;
+    color: inherit;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    background-color: rgb(26, 25, 25);
+    color: white;
+    height: 100vh;
+}
+/*header-style*/
+header{
+    display: flex;
+    justify-content:space-between;
+    padding: 1rem 0.8rem;
+    align-items: center;
+}
+header .material-icons {
+    font-size: 1.9rem;
+}
+header h1{
+     font-family: "Open Sans", sans-serif;
+     font-weight: 600;
+}
+/*main-style*/
+main {
+    position:absolute;
+    bottom: 4rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14rem;
+}
+ main h2{
+   text-align: center;
+  font-family: "Charm", cursive;
+  color:rgba(245, 245, 245, 0.671);
+  line-height: 1.65;
+ }
+ main .chat-bar{
+    background-color:rgb(49, 49, 49);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius:2rem;
+    margin: 0.8rem;
+    align-items: center;
+ }
+ main .chat-bar input{
+    width: 80%;
+    font-size:1.2rem;
+    font-family: "Manjari", sans-serif;
+    border: none;
+    color: white;
+    background-color:rgb(49,49,49);
+ }
+ main .chat-bar input::placeholder{
+    color:white;
+ }
+ main .chat-bar input:focus{
+    outline: none;
+ }
+ /*footer styleing*/
+ footer {
+    position:absolute;
+    bottom: 0.5rem;
+    width: 100%;
+ }
+ footer nav{
+    padding: 1rem;
+    display: flex;
+    justify-content:space-between;
+ }
+
+ /*desktop-styles*/
+ @media (min-width:600px){
+   main {
+      gap: 8rem;
+   }
+   main h2{
+      font-size: 2.1rem;
+   }
+   main .chat-bar{
+      width:70% ;
+      margin:0 15%;
+   }
+   footer{
+      display: none;
+   }
+ }

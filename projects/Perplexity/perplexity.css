@@ -59,7 +59,6 @@ main {
  main .chat-bar input{
     width: 80%;
     font-size:1.2rem;
-    font-family: "Manjari", sans-serif;
     border: none;
     color: white;
     background-color:rgb(49,49,49);

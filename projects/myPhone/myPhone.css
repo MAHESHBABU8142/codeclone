@@ -1,0 +1,77 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manjari:wght@100;400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: rgb(27, 27, 27);
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    padding:0.7rem 0.5rem;
+    width: 400px;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+}
+main {
+    padding: 1.1rem;
+}
+main #main-time{
+    font-size: 3.5rem;
+}
+main #main-time span{
+ font-size: 1rem;
+}
+main #main-date{
+     font-family: "Inter", sans-serif;
+     padding-left: 0.4rem;
+     font-size: 0.8rem;
+}
+main #search-bar {
+    margin-top: 2rem;
+    background-color: rgb(47, 49, 53);
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+main #search-bar input {
+    background-color: rgb(75, 74, 74);
+    border: none;
+    font-size: 1rem;
+    padding: 0.7rem;
+    border-radius: 2rem;
+    width: 100%;
+    color: white;
+}
+main #search-bar input::placeholder{
+    color: white;
+}
+main #home-apps{
+    margin-top: 10%;
+    display: grid;
+    grid-template-columns: repeat(5,5fr);
+    gap: 1rem;
+}
+main #home-apps button{
+    padding: 1.8rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+footer {
+    position:fixed;
+    width:inherit;
+    display: flex;
+    justify-content:space-evenly;
+    bottom:0.5rem;
+    gap: 1.3rem;
+}
+footer button{
+    padding: 1.8rem;
+     border-radius: 0.5rem;
+     border: none;
+}

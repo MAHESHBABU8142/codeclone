@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Puter.js DeepSeek Sample</title>
+  <script src="https://js.puter.com/v2/"></script>
+    <style>
+      *{
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-color: rgb(29, 29, 29);
+        color: white;
+         font-family: Arial, Helvetica, sans-serif;
+      }
+      header {
+        text-align: center;
+       padding: 2rem;
+      }
+      main {
+        background-color: rgb(46, 11, 87);
+       padding: 1rem;
+      }
+      main h2 { 
+        text-align:start;
+        font-size: 1.2rem;
+        border: 2px solid white;
+        padding:0.5rem 0.7rem;
+        width: fit-content;
+        border-radius: 1rem;
+        background-color: rgb(27, 27, 27);
+      }
+      p,section{
+        margin: 2rem;
+        line-height: 2;
+      }
+      b{
+        color:orange;
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <h1>MChat</h1>
+  </header>
+  <main>
+    <h2>Enter a message </h2>
+    <p></p>
+    <section>
+
+    </section>
+  </main>
+  <script>
+     let msg = ``;
+ 
+
+
+// Ask DeepSeek a sample question
+    puter.ai.chat(
+      "give any advice to a 18years old aspiring enterprenuer who knows web and app devolopment",
+      { model: "deepseek-reasoner" }
+    ).then(response => {
+        msg=response.message.content;
+      console.log(response.message.content);
+      
+    //funcion for styling
+     let msg2Starts=msg.split("**");
+    
+     for (let i=0;i<msg2Starts.length;i++){
+         if(i%2=="1") {
+        document.querySelector("section").innerHTML +=`<br><b>${msg2Starts[i]}</b><br> ` ;
+         }
+         else {
+       document.querySelector("section").innerHTML +=`${msg2Starts[i]}` ;
+         }
+        }
+  
+
+    }).catch(err => {
+      console.error("Error:", err);
+    });
+
+
+  
+  </script>
+</body>

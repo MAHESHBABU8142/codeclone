@@ -1,6 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manjari:wght@100;400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manjari:wght@100;400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=REM:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 /*global styles*/
 *{
     padding: 0;
@@ -22,34 +21,63 @@ body {
 
 header {
   padding: 1.5rem;
-  border-bottom: 2px solid rgb(189, 181, 181);
-  
+  border-bottom: 1px solid rgb(112, 108, 108);
+  display: flex;
+  justify-content:space-between;
+    align-items: center;  
 }
 header h1 {
    font-size:1.7rem;
-   color:rgb(247, 237, 237);
+   color: rgba(255, 255, 255, 0.842);
+    font-family: "REM", sans-serif;
+    font-weight: 500;
+}
+header p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.842);
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    margin-left: 1rem;
 }
 
 /*==================main===================*/
 
 main {
        font-family: "Inter", sans-serif;
+       padding-bottom: 65vh;
+}
+main #welcome-msg {
+    padding: 1.5rem 1rem;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.842);
+    line-height: 1.5;
+    text-align: center;
 }
 main h2 {
-    padding: 1.5rem 2rem;
+    padding:0.5rem 1.3rem;
     font-weight: 400;
 }
 main #date {
-    margin: 1rem 0;
+    margin: 1rem;
     background-color: rgb(37, 44, 43);
     color: white;
-    font-size: 1.2rem;
-    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    padding: 0.5rem 0.8rem;
     letter-spacing: 0.1rem;
+    width: fit-content;
+    border-top-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    border: 1px solid rgba(79, 87, 86, 0.603);
+
 }
-main #transactions-list {
-   
+main #status {
+    font-size: 1.2rem;
+    padding-top: 10rem;
+    letter-spacing: 0.1rem;
+    text-align: center;
 }
+
+/*transactions list section */
 main #transactions-list ul {
     padding:0.3rem 0.8rem;
     list-style: none;
@@ -63,6 +91,7 @@ main #transactions-list li {
     border-radius: 0.6rem;
     border: 1px solid rgba(0, 255, 242, 0.377);
     box-shadow: 0 0 10px rgba(0, 255, 242, 0.377);
+    font-size: 1rem;
 }
 main #transactions-list li span:nth-of-type(1) {
     color: rgb(27, 231, 54);
@@ -70,13 +99,13 @@ main #transactions-list li span:nth-of-type(1) {
 }
 main #transactions-list li span:nth-of-type(2){
     color:yellow;
-    padding:0 1rem;
+    padding:0 0.5rem;
     
 }
 main #transactions-list li span:nth-of-type(3){
     color:rgb(25, 238, 5);
     font-weight: bold;
-    padding:0 1rem ;
+    padding:0 0.5rem;
 }
 main #transactions-list #new {
     margin:0.3rem 0.8rem;
@@ -121,7 +150,7 @@ main #add-new-transaction form {
 main #add-new-transaction form input::placeholder{
     color: white;
 }
-main #add-new-transaction form input:focus {
+main #add-new-transaction form input:focus,main #add-new-transaction form select:focus {
     outline:none;
      border: 1px solid rgb(9, 9, 235);
 }
@@ -131,7 +160,17 @@ main #add-new-transaction input {
     color: white;
     font-size: 1rem;
     padding: 0.5rem;
+    
 
+}
+main #add-new-transaction form select {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    cursor: pointer;
 }
 main #add-new-transaction form button {
     background-color: rgb(13, 177, 13);
@@ -147,11 +186,30 @@ main #add-new-transaction form button {
     to {
         transform: translateY(0);
     }
+}   
+/*count transactions section*/
+main #count-transactions div{
+    padding: 1rem;
+    background-color: rgb(19, 18, 18);
+    border: 1px solid rgba(79, 87, 86, 0.603);
+    border-radius: 0.6rem;
+    line-height:1.6;
+    margin: 1rem;
 }
-/*footer*/
+main #count-transactions h3 {
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+main #count-transactions p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.842);
+}
+
+/*==================footer===================*/
 footer {
     padding: 1rem 0;
-    border-top: 2px solid rgb(189, 181, 181);
+    border-top: 1px solid rgb(100, 97, 97);
     position: relative;
     bottom: 0;
     width: 100%;

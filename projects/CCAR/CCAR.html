@@ -10,9 +10,11 @@
 <body>
    <header>
       <h1>CCAR</h1>
+      <p></p>
    </header>
    <main>
-       <h2>All transactions..</h2>
+      <p id="welcome-msg">Welcome to CCAR. The place where you can manage all your payments records.</p>
+       <h2>All transactions</h2>
 
        <!--cashback recoreds section-->
        <section id="transactions-list">
@@ -23,17 +25,34 @@
            
         </ul>
         <button id="new">New</button>
+         <p id="status"></p>
         </section>
         <!--cashback add new section-->
 
         <section id="add-new-transaction">
             <p>Enter Payment details</p>
              <form>
-                <input type="number" placeholder="Enter Amount" id="amount">
-                <input type="text" placeholder="From" id="from">
-                <input type="text" placeholder="To" id="to">
-                <button>Enter</button>
+                <input type="number" placeholder="Enter Amount" id="amount" required>
+                <input type="text" placeholder="From" id="from" required>
+
+                <select id="to" required>
+                  <option value="" disabled selected>Select Marchant </option>
+                  <option value="Go Food">Go food</option>
+                  <option value="Bharath pay">Bharath pay</option>
+                </select>
+
+                <button type="submit">Submit</button>
              </form>
+        </section>
+        
+        <!--total and count section-->
+        <section id="count-transactions">
+             <div>
+               <P id="gpay-total">Total Gpay collection :300/-</P>
+               <P id=bharathpay-total> Bharath pay collection :500/-</P>
+               <h3 id="total-amount">Grand Total : 800/-</h3>
+             </div>
+           
         </section>
    </main>
    <footer>

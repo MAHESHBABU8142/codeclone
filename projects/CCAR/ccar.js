@@ -1,11 +1,17 @@
 
+//for sound effect
+ function playSound(soundPath){
+  let sound = new Audio(soundPath);
+  sound.play();
+ }
 
 //time object
 const now = new Date();
-
+let hours;
  //to check AM or PM
 let noon=function(){
           if (now.getHours()<=12) {
+            
             return "AM"
             
         }
@@ -13,11 +19,24 @@ let noon=function(){
            return "PM"
         }
      }
+    //to convert 12 hours system 
+  let _12HoursTime=function(){
+    if (now.getHours()==0){
+      return "12";
+    }
+    else if (now.getHours()>12){
+        return now.getHours()-12;
+    }
+    else {
+         return now.getHours();
+    }
+  }
 
      //show real time at header
+     console.log(now.getHours());
      function showTime(){
       const now = new Date();
-   document.querySelector("header p").innerHTML=`${String(now.getHours()-12).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")} ${noon()}`;
+   document.querySelector("header p").innerHTML=`${String(_12HoursTime()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")} ${noon()}`;
      }
      setInterval(showTime,1000);
   
@@ -31,6 +50,7 @@ let payLIst=document.querySelector("main #transactions-list ul");
 let gpayTotal=0;
 let bharathPaytotal=0;
 let GrandTotal=0;
+let moneyReq;
 
 
 
@@ -43,7 +63,7 @@ document.querySelector("main #add-new-transaction").classList.toggle("form-motio
 
 
 
-//for showing date and time
+//for showing date and day
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 document.querySelector("main #transactions-list #date").innerHTML = `${String(now.getDate()).padStart(2, "0")}-${String(now.getMonth()+1).padStart(2,"0")}-${now.getFullYear()}   ${days[now.getUTCDay()]}`;
 
@@ -71,7 +91,7 @@ document.querySelector("main #add-new-transaction form").addEventListener("submi
     
 
     //insert value to created elements
-    time.innerHTML=`${String(now.getHours()-12).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")} ${noon()}`;
+    time.innerHTML=`${String(_12HoursTime()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")} ${noon()}`;
     fromTo.innerHTML=`${from} ⇒ ${to}`;
     amount.innerHTML="₹"+ document.querySelector("#add-new-transaction form #amount").value +"/-" ;
 
@@ -81,6 +101,7 @@ document.querySelector("main #add-new-transaction form").addEventListener("submi
     listItem.appendChild(amount);
 
     //attach to main ul
+    playSound("../../sounds/tap-notification-180637.mp3");
     document.querySelector("main #transactions-list ul").appendChild(listItem);
 
     //to count total money 
@@ -102,6 +123,12 @@ document.querySelector("main #add-new-transaction form").addEventListener("submi
 
        document.querySelector("main #add-new-transaction form #amount").value="";
        document.querySelector("main #add-new-transaction form #from").value="";
+
+        moneyReq=`Hello,
+       *The total collection comes to ${GrandTotal}/-*.
+       Could you please send the amount at your convenience?
+       Thank you so much!
+      `
       });
 
 //if there is no transctions
@@ -109,4 +136,15 @@ if (payLIst.childElementCount==0){
     document.querySelector("main #transactions-list #status").innerHTML="No payments yet";
     document.querySelector("main #count-transactions").style.display="none";
 }
+
+
+//to request for money 
+     
+document.querySelector("main #count-transactions #req-btn").addEventListener("click",function(){
+
+  window.open(`https://wa.me/918142260358?text=${encodeURIComponent(moneyReq)}`,"_blank");
+
+
+
+});
 

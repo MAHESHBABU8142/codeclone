@@ -44,7 +44,6 @@ header p {
 
 main {
        font-family: "Inter", sans-serif;
-       padding-bottom: 65vh;
 }
 main #welcome-msg {
     padding: 1.5rem 1rem;
@@ -72,7 +71,7 @@ main #date {
 }
 main #status {
     font-size: 1.2rem;
-    padding-top: 10rem;
+    padding: 10rem 0;
     letter-spacing: 0.1rem;
     text-align: center;
 }
@@ -218,6 +217,43 @@ main #count-transactions button {
     border-radius: 0.3rem;
     cursor: pointer;
     margin-top: 0.3rem;
+}
+/*==================qr section===================*/
+ main #qr {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+main #qr fieldset {
+    border: none;
+    border-top: 1.5px solid rgba(79, 87, 86, 0.603);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main #qr legend {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: center;
+    padding:1.5rem 1rem;
+}
+main #qr img {
+    width: 100%;
+    border-radius: 0.6rem;
+    box-shadow: 0 0 10px rgba(0, 255, 242, 0.377);
+}
+main #qr button {
+    background-color: rgb(44, 44, 44);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-right: 1rem;
 }
 /*==================footer===================*/
 footer {

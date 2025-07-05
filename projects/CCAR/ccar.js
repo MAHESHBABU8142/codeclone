@@ -144,7 +144,27 @@ document.querySelector("main #count-transactions #req-btn").addEventListener("cl
 
   window.open(`https://wa.me/918142260358?text=${encodeURIComponent(moneyReq)}`,"_blank");
 
-
-
 });
 
+//for showing qr scanners
+
+   let imgCount=0;
+
+   function setQrImg(imgPath){
+    let scanerImg=document.querySelector("main #qr fieldset img");
+    scanerImg.setAttribute("src",imgPath);
+  }
+ 
+    setQrImg("../../images/bharath pay scanner.jpg");
+
+   document.querySelector("main #qr button").addEventListener("click",function(){
+   
+    if (imgCount%2==0){
+   setQrImg("../../images/Go Food scanner.png");
+    }
+     else {
+      setQrImg("../../images/bharath pay scanner.jpg");
+    }
+    
+    imgCount++;
+   });

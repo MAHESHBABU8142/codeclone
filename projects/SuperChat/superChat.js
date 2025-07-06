@@ -4,7 +4,7 @@
   document.querySelector("form").addEventListener("submit",()=>{
       console.log("chat msg submitted");
       let person1Msg=document.querySelector("form input").value;
-      fetch("http://localhost:4000/person1ChatMsg", {
+      fetch("https://newback.up.railway.app/person1ChatMsg", {
         method: "POST",
          headers: {
         "Content-Type": "application/x-www-form-urlencoded",

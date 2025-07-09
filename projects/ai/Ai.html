@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Semantic HTML Example</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Dongle&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manjari:wght@100;400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=REM:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: rgb(26, 25, 25);
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        header {
+            border-bottom: 1px solid rgb(77, 73, 73);
+            padding: 1rem 2rem;
+            background-color: rgba(24, 23, 23, 0.267);
+        }
+
+       main {
+            position: relative;
+            min-height: 80vh;
+            padding: 1rem;
+            border: 1px solid rgb(61, 60, 60);
+            margin: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-bottom: 8rem;
+        }
+        .division P{
+            font-family: "Inter", sans-serif;
+            line-height:1.6;
+            margin: 0.8rem 0;
+
+        }
+        main .division ul , main .division ol{
+            font-family: "Roboto", sans-serif;
+            padding-left: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+        }
+        main .division ul li,main .division ol li {
+             line-height:1.6;
+        }
+        main .division strong {
+            font-family: "Inter", sans-serif;
+            padding-right: 0.2rem;
+             line-height:1.6;
+        }
+        main .division .userQuory {
+          font-weight: 600;
+          background-color: rgb(24, 23, 23);
+          width: fit-content;
+          padding: 0.3rem 0.7rem;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          border: 1px solid rgb(63, 62, 62);
+
+        }
+        main .division .loading-animation {
+          font-size: 1.1rem;
+          font-family: "Inter", sans-serif;
+          animation: loading-anime 1s ease-in-out infinite forwards;
+      
+        }
+         @keyframes loading-anime {
+          0%{
+            opacity: 0;
+          }
+          100%{
+            opacity: 1;
+          }
+         }
+        main form {
+          position: absolute;
+          bottom: 1rem;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+        main #user-input {
+            font-size: 1.2rem;
+            padding: 0.8rem 1.8rem;
+            border: 1px solid wheat;
+            background-color: rgb(27, 27, 27);
+            color: white;
+            border-radius: 5px;
+            font-family:"Inter", sans-seri;
+            font-weight: 500;
+            width: 60%;
+          
+        }main #user-input::placeholder{
+          color: white;
+        }
+        main #user-input:focus {
+          outline: none;
+          border: 1px solid blue;
+        }
+        footer {
+            padding-top: 5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+      <h1>AI</h1>
+    </header>
+    <main>
+        <!--div and quory& ai response will added synamically-->
+          <form>
+          <input id="user-input" type="text" placeholder="Start Typing...">
+          </form>
+    </main>
+    <footer>
+        <P>designed by Mudavath Maheshbabu</P>
+        <p>&copy; 2025 Ai all rights are reserved</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+  document.querySelector("main form").addEventListener("submit",(event)=>{
+  event.preventDefault();
+  //to create elements
+  let div=document.createElement("div");
+  div.classList="division";
+  let userQuory=document.createElement("p");
+    userQuory.classList="userQuory";
+  let loadingEl=document.createElement("p");
+  loadingEl.classList="loading-animation";
+  let aiResponse=document.createElement("section");
+
+
+    //inserting values
+    userQuory.innerHTML=document.querySelector("main form #user-input").value ;
+    loadingEl.innerText="Loading...";
+
+     let obj={
+     quary:document.querySelector("main form #user-input").value
+   };
+
+     
+  //attaching to division
+    div.appendChild(userQuory);
+    div.appendChild(loadingEl);
+
+  fetch("https://node-end-production.up.railway.app/getChat",{
+    method:"POST",
+    headers :{
+        "Content-Type":"application/json"
+    },
+     body: JSON.stringify(obj)
+  })
+ .then(response => response.json())
+  .then(data => {
+
+  div.removeChild(loadingEl);
+  aiResponse.innerHTML=marked.parse(data.reply);
+  div.appendChild(aiResponse);
+
+});
+
+
+
+ 
+
+    document.querySelector("main").appendChild(div);
+
+
+    document.querySelector("main form #user-input").value="";
+});
+  
+  
+
+
+    </script>
+</body>
+</html>

@@ -17,15 +17,16 @@
         
         <!--total and count section-->
         <section id="count-transactions">
+           <fieldset>
+            <legend>Total Collections Board</legend>
              <div>
-               <P id="gpay-total">Total Gpay collection :300/-</P>
-               <P id=bharathpay-total> Bharath pay collection :500/-</P>
-               <h3 id="total-amount">Grand Total : 800/-</h3>
+               <P id="gpay-total">Total Gpay collection :0/-</P>
+               <P id=bharathpay-total> Bharath pay collection :0/-</P>
+               <h3 id="total-amount">Grand Total : 0/-</h3>
              </div> 
-             
-       
              <button id="req-btn">Reqest for money</button>
 
+            </fieldset>
 
         </section>
 
@@ -66,8 +67,12 @@
             <legend>QR  Scanner's</legend>
               <img>   
          </fieldset>
+
          <div>
-            <button>Next</button>
+            <a download="qr-code"  id="qr-download">
+            <button>Download</button>
+            </a>
+            <button id="qr-next-btn">Next</button>
          </div>
            
        

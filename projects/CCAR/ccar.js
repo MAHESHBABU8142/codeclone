@@ -1,4 +1,7 @@
 
+
+document.addEventListener("DOMContentLoaded", function () {
+
 //for sound effect
  function playSound(soundPath){
   let sound = new Audio(soundPath);
@@ -33,7 +36,6 @@ let noon=function(){
   }
 
      //show real time at header
-     console.log(now.getHours());
      function showTime(){
       const now = new Date();
    document.querySelector("header p").innerHTML=`${String(_12HoursTime()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")} ${noon()}`;
@@ -65,7 +67,7 @@ document.querySelector("main #add-new-transaction").classList.toggle("form-motio
 
 //for showing date and day
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-document.querySelector("main #transactions-list #date").innerHTML = `${String(now.getDate()).padStart(2, "0")}-${String(now.getMonth()+1).padStart(2,"0")}-${now.getFullYear()}   ${days[now.getUTCDay()]}`;
+document.querySelector("main #transactions-list #date").innerHTML = `${String(now.getDate()).padStart(2, "0")}-${String(now.getMonth()+1).padStart(2,"0")}-${now.getFullYear()}   ${days[now.getDay()]}`;
 
 
 
@@ -73,15 +75,38 @@ document.querySelector("main #transactions-list #date").innerHTML = `${String(no
 //add payment data after form submiton..
 document.querySelector("main #add-new-transaction form").addEventListener("submit",function(event){
  
+
+    //to prevernt not to reload aftr submition
+    event.preventDefault();
+     let from=document.querySelector("#add-new-transaction form #from").value;
+    let to=document.querySelector("#add-new-transaction form #to").value;
+
+
+  //  //to send data to backend server
+      fetch("http://localhost:4000/payData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `amount=${encodeURIComponent(document.querySelector("#add-new-transaction form #amount").value)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`
+      })
+
+      .then(response => response.json())
+      .then(data => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+
+
+
      //clear status 
       document.querySelector("main #add-new-transaction").classList.toggle("form-motion");
       document.querySelector("main #transactions-list #status").innerHTML="";
       document.querySelector("main #count-transactions").style.display="flex";
    
-    //to prevernt not to reload aftr submition
-    event.preventDefault();
-     let from=document.querySelector("#add-new-transaction form #from").value;
-    let to=document.querySelector("#add-new-transaction form #to").value;
     
     //create payment elements
     let listItem=document.createElement("li"); 
@@ -89,7 +114,21 @@ document.querySelector("main #add-new-transaction form").addEventListener("submi
     let fromTo=document.createElement("span");
     let amount=document.createElement("span");
     
-
+    //to get payments data from server database
+    fetch("http://localhost:4000/paymentsDatabase",{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert("Payments data:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  /*    
     //insert value to created elements
     time.innerHTML=`${String(_12HoursTime()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")} ${noon()}`;
     fromTo.innerHTML=`${from} ⇒ ${to}`;
@@ -128,13 +167,13 @@ document.querySelector("main #add-new-transaction form").addEventListener("submi
        *The total collection comes to ${GrandTotal}/-*.
        Could you please send the amount at your convenience?
        Thank you so much!
-      `
+      `*/
       });
 
 //if there is no transctions
 if (payLIst.childElementCount==0){
     document.querySelector("main #transactions-list #status").innerHTML="No payments yet";
-    document.querySelector("main #count-transactions").style.display="none";
+    document.querySelector("main #count-transactions").style.display="";
 }
 
 
@@ -153,11 +192,12 @@ document.querySelector("main #count-transactions #req-btn").addEventListener("cl
    function setQrImg(imgPath){
     let scanerImg=document.querySelector("main #qr fieldset img");
     scanerImg.setAttribute("src",imgPath);
+    document.querySelector("main #qr #qr-download").setAttribute("href",imgPath);
   }
  
     setQrImg("../../images/bharath pay scanner.jpg");
 
-   document.querySelector("main #qr button").addEventListener("click",function(){
+   document.querySelector("main #qr #qr-next-btn").addEventListener("click",function(){
    
     if (imgCount%2==0){
    setQrImg("../../images/Go Food scanner.png");
@@ -168,3 +208,9 @@ document.querySelector("main #count-transactions #req-btn").addEventListener("cl
     
     imgCount++;
    });
+
+
+
+
+ 
+  }); 

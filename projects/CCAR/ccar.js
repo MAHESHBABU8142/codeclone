@@ -2,11 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-//for sound effect
- function playSound(soundPath){
-  let sound = new Audio(soundPath);
-  sound.play();
- }
 
 //time object
 const now = new Date();
@@ -48,12 +43,6 @@ let noon=function(){
 let payLIst=document.querySelector("main #transactions-list ul");
 
 
-//total money variables
-let gpayTotal=0;
-let bharathPaytotal=0;
-let GrandTotal=0;
-let moneyReq;
-
 
 
 
@@ -69,121 +58,92 @@ document.querySelector("main #add-new-transaction").classList.toggle("form-motio
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 document.querySelector("main #transactions-list #date").innerHTML = `${String(now.getDate()).padStart(2, "0")}-${String(now.getMonth()+1).padStart(2,"0")}-${now.getFullYear()}   ${days[now.getDay()]}`;
 
-
-
-
 //add payment data after form submiton..
-document.querySelector("main #add-new-transaction form").addEventListener("submit",function(event){
- 
+document.querySelector("main #add-new-transaction form").addEventListener("submit",function(){
 
-    //to prevernt not to reload aftr submition
-    event.preventDefault();
+//clear status and show form
+      document.querySelector("main #add-new-transaction").classList.toggle("form-motion");
+   
+      document.querySelector("main #count-transactions").style.display="flex";
+    
+       //clear form values...
+ let instance= new Date();
+
+//to check AM or PM
+let noon=function(){
+          if (instance.getHours()<=12) {
+            
+            return "AM"
+            
+        }
+          else {
+           return "PM"
+        }
+     }
+
+//to convert time
+  let _12HoursTime=function(){
+    if (instance.getHours()==0){
+      return "12";
+    }
+    else if (instance.getHours()>12){
+        return instance.getHours()-12;
+    }
+    else {
+         return instance.getHours();
+    }
+  }
+   
      let from=document.querySelector("#add-new-transaction form #from").value;
     let to=document.querySelector("#add-new-transaction form #to").value;
 
+    let GoFood;
+    let BharathPay;
+
+if (to=="Go Food"){
+ GoFood=document.querySelector("#add-new-transaction form #amount").value;
+ BharathPay=0;
+}
+else {
+  GoFood=0;
+BharathPay=document.querySelector("#add-new-transaction form #amount").value;
+}
+
+    //to insert payments details
+ let payObj={
+     time:`${String(_12HoursTime()).padStart(2,"0")}:${String(instance.getMinutes()).padStart(2,"0")}:${String(instance.getSeconds()).padStart(2,"0")} ${noon()}`,
+     from:from,
+     to:to,
+     GoFood:GoFood,
+     BharathPay:BharathPay,
+     amount:document.querySelector("#add-new-transaction form #amount").value,
+     NumberOfTimes:document.querySelector("#add-new-transaction form #NumberOfTimes").value
+    }
+
+
 
   //  //to send data to backend server
-      fetch("http://localhost:4000/payData", {
+     fetch("https://node-end-production.up.railway.app/sendPayData", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/json"
         },
-        body: `amount=${encodeURIComponent(document.querySelector("#add-new-transaction form #amount").value)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`
-      })
-
-      .then(response => response.json())
-      .then(data => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+        body:JSON.stringify(payObj)
       });
-
-
-
-
-     //clear status 
-      document.querySelector("main #add-new-transaction").classList.toggle("form-motion");
-      document.querySelector("main #transactions-list #status").innerHTML="";
-      document.querySelector("main #count-transactions").style.display="flex";
-   
-    
-    //create payment elements
-    let listItem=document.createElement("li"); 
-    let time=document.createElement("span");
-    let fromTo=document.createElement("span");
-    let amount=document.createElement("span");
-    
-    //to get payments data from server database
-    fetch("http://localhost:4000/paymentsDatabase",{
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        alert("Payments data:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  /*    
-    //insert value to created elements
-    time.innerHTML=`${String(_12HoursTime()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")} ${noon()}`;
-    fromTo.innerHTML=`${from} ⇒ ${to}`;
-    amount.innerHTML="₹"+ document.querySelector("#add-new-transaction form #amount").value +"/-" ;
-
-    //attach elements to list Item
-    listItem.appendChild(time);
-    listItem.appendChild(fromTo);
-    listItem.appendChild(amount);
-
-    //attach to main ul
-    playSound("../../sounds/tap-notification-180637.mp3");
-    document.querySelector("main #transactions-list ul").appendChild(listItem);
-
-    //to count total money 
-    if (to==="Go Food") {
-      gpayTotal+=Number(document.querySelector("#add-new-transaction form #amount").value);
-    }
-    else {
-        bharathPaytotal+=Number(document.querySelector("#add-new-transaction form #amount").value);
-    }
-
-      GrandTotal+=Number(document.querySelector("#add-new-transaction form #amount").value);
       
-      //adding total money data
-      document.querySelector("main #count-transactions #gpay-total").innerHTML=`Total Gpay collection : ${gpayTotal} /-`;
-      document.querySelector("main #count-transactions #bharathpay-total").innerHTML=`Total bharath pay collection : ${bharathPaytotal} /-`;
-      document.querySelector("main #count-transactions h3").innerHTML=`GrandTotal : ${GrandTotal} /-`;
-
-      //clear form values...
-
        document.querySelector("main #add-new-transaction form #amount").value="";
        document.querySelector("main #add-new-transaction form #from").value="";
-
-        moneyReq=`Hello,
-       *The total collection comes to ${GrandTotal}/-*.
-       Could you please send the amount at your convenience?
-       Thank you so much!
-      `*/
-      });
+         });
+    
 
 //if there is no transctions
+
 if (payLIst.childElementCount==0){
     document.querySelector("main #transactions-list #status").innerHTML="No payments yet";
     document.querySelector("main #count-transactions").style.display="";
 }
 
 
-//to request for money 
-     
-document.querySelector("main #count-transactions #req-btn").addEventListener("click",function(){
-
-  window.open(`https://wa.me/918142260358?text=${encodeURIComponent(moneyReq)}`,"_blank");
-
-});
 
 //for showing qr scanners
 
@@ -208,9 +168,76 @@ document.querySelector("main #count-transactions #req-btn").addEventListener("cl
     
     imgCount++;
    });
-
-
-
-
  
   }); 
+
+        //to get payments data from server database
+         fetch("https://node-end-production.up.railway.app/getPayData", {
+          method:"GET"
+         })
+        .then(res =>res.json())
+        .then(data=>{
+            console.log(data.payments.length);
+          if (data.payments.length>0){
+               document.querySelector("main #transactions-list #status").innerHTML="";
+             
+          }
+       //total money variables
+        let gpayTotal=0;
+        let bharathPaytotal=0;
+        let GrandTotal=0;
+
+    for (let i=0;i<data.payments.length;i++){
+
+   //create payment elements
+    let listItem=document.createElement("li"); 
+    let time=document.createElement("span");
+    let fromTo=document.createElement("span");
+    let amount=document.createElement("span");
+     let noOfTImes=document.createElement("span");
+
+    //insert value to created elements
+    time.innerHTML=data.payments[i].time;
+    fromTo.innerHTML=`${data.payments[i].from} ⇒ ${data.payments[i].to}`;
+    amount.innerHTML="₹"+data.payments[i].amount +"/-" ;
+    noOfTImes.innerHTML=data.payments[i].NumberOfTimes+" Times";
+
+    //attach elements to list Item
+    listItem.appendChild(time);
+    listItem.appendChild(fromTo);
+    listItem.appendChild(amount);
+    listItem.appendChild(noOfTImes);
+    
+    //attach to main ul
+    document.querySelector("main #transactions-list ul").appendChild(listItem);
+ 
+
+   //to count total money 
+       gpayTotal+=Number((data.payments[i].GoFood)*(data.payments[i].NumberOfTimes));
+       bharathPaytotal+=Number((data.payments[i].BharathPay)*(data.payments[i].NumberOfTimes));
+       GrandTotal+=Number((data.payments[i].amount)*(data.payments[i].NumberOfTimes));
+      
+        //adding total money data
+      document.querySelector("main #count-transactions #gpay-total").innerHTML=`Total Gpay collection : ${gpayTotal} /-`;
+     document.querySelector("main #count-transactions #bharathpay-total").innerHTML=`Total bharath pay collection : ${bharathPaytotal} /-`;
+     document.querySelector("main #count-transactions h3").innerHTML=`GrandTotal : ${GrandTotal} /-`;
+
+     
+        moneyReq=`Hello,
+       *The total collection comes to ${GrandTotal}/-*.
+       Could you please send the amount at your convenience?
+       Thank you so much!
+      `
+    }
+        });
+
+
+     
+
+//to request for money 
+     
+document.querySelector("main #count-transactions #req-btn").addEventListener("click",function(){
+
+  window.open(`https://wa.me/918142260358?text=${encodeURIComponent(moneyReq)}`,"_blank");
+
+});

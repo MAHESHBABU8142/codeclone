@@ -20,13 +20,18 @@ body {
 /*==================header===================*/
 
 header {
-  padding: 1.5rem;
-  border-bottom: 1px solid rgb(112, 108, 108);
+ background-color:rgb(10, 10, 10,0.3) ;
+  border-bottom: 1px solid rgb(85, 84, 84);
   display: flex;
-  justify-content:space-between;
-    align-items: center;  
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;  
+  width: 100%;
+  padding: 1rem ;
 }
 header h1 {
+  
+    justify-self: flex-start;
    font-size:1.7rem;
    color: rgba(255, 255, 255, 0.842);
     font-family: "REM", sans-serif;
@@ -43,7 +48,8 @@ header p {
 /*==================main===================*/
 
 main {
-       font-family: "Inter", sans-serif;
+    padding-top: 5rem;
+    font-family: "Inter", sans-serif;
 }
 main #welcome-msg {
     padding: 1.5rem 1rem;
@@ -87,8 +93,7 @@ main #transactions-list li {
     background-color:rgb(21, 27, 26);
     padding: 1.3rem 0.5rem;
     border-radius: 0.6rem;
-    border: 1px solid rgba(0, 255, 242, 0.377);
-    box-shadow: 0 0 10px rgba(0, 255, 242, 0.377);
+    border: 1px solid rgba(5, 160, 152, 0.377);
     font-size: 1rem;
 }
 main #transactions-list li span:nth-of-type(1) {
@@ -98,11 +103,15 @@ main #transactions-list li span:nth-of-type(1) {
 main #transactions-list li span:nth-of-type(2){
     color:yellow;
     padding:0 0.5rem;
-    
 }
 main #transactions-list li span:nth-of-type(3){
     color:rgb(25, 238, 5);
     font-weight: bold;
+    padding:0 0.5rem;
+}
+main #transactions-list li span:nth-of-type(4){
+    color:rgb(27, 53, 204);
+    font-weight:600;
     padding:0 0.5rem;
 }
 main #transactions-list #new {

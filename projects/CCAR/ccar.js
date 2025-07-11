@@ -123,7 +123,7 @@ BharathPay=document.querySelector("#add-new-transaction form #amount").value;
 
 
   //  //to send data to backend server
-     fetch("https://node-end-production.up.railway.app/sendPayData", {
+     fetch("https://l24news.mudavathmaheshbabu002.workers.dev/sendPayData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -172,7 +172,7 @@ if (payLIst.childElementCount==0){
   }); 
 
         //to get payments data from server database
-         fetch("https://node-end-production.up.railway.app/getPayData", {
+         fetch("https://l24news.mudavathmaheshbabu002.workers.dev/getPayData", {
           method:"GET"
          })
         .then(res =>res.json())
